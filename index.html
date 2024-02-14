@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Calculator - training with Alpine</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="phone">
+        <div class="notification">
+            <div x-data="{ time: getTime()}">
+                <span x-text="time"></span>
+            </div>
+            <div class="icons">
+                <i class="fa-solid fa-signal"></i>
+                <i class="fa-solid fa-wifi"></i>
+                <i class="fa-solid fa-battery-full"></i>
+            </div>
+        </div>
+        <div x-data="calculator()" class="calculator">
+            <div class="box" x-text="selectedNumber"></div>
+            <div class="row">
+                <div @click="clear()" class="button bg-light-gray">AC</div>
+                <div @click="changeSign()" class="button bg-light-gray">+/-</div>
+                <div @click="percentage()" class="button bg-light-gray">%</div>
+                <div @click="selectOperation($event, '/')" class="button bg-orange">÷</div>
+            </div>
+            <div class="row">
+                <div @click="appendNumber(7)" class="number button bg-gray">7</div>
+                <div @click="appendNumber(8)" class="number button bg-gray">8</div>
+                <div @click="appendNumber(9)" class="number button bg-gray">9</div>
+                <div @click="selectOperation($event, '*')" class="button bg-orange">x</div>
+            </div>
+            <div class="row">
+                <div @click="appendNumber(4)" class="number button bg-gray">4</div>
+                <div @click="appendNumber(5)" class="number button bg-gray">5</div>
+                <div @click="appendNumber(6)" class="number button bg-gray">6</div>
+                <div @click="selectOperation($event, '-')" class="button bg-orange">-</div>
+            </div>
+            <div class="row">
+                <div @click="appendNumber(1)" class="number button bg-gray">1</div>
+                <div @click="appendNumber(2)" class="number button bg-gray">2</div>
+                <div @click="appendNumber(3)" class="number button bg-gray">3</div>
+                <div @click="selectOperation($event, '+')" class="operation button bg-orange">+</div>
+            </div>
+            <div class="row">
+                <div class="number button-zero bg-gray">0</div>
+                <div class="button bg-gray">,</div>
+                <div @click="selectOperation($event, '=')" class="button bg-orange">=</div>
+            </div>
+        </div>
+        <div class="footer">
+            <span class="line"></span>
+        </div>
+    </div>
+</div>
+</body>
+<script src="script.js"></script>
+
+<script>
+    function calculator() {
+        return {
+            selectedNumber: '0',
+            operation: '',
+            result: '',
+            appendNumber(number) {
+                let checked = document.querySelector('.checked');
+                if (checked) {
+                    this.result = eval(this.selectedNumber + this.operation + number);
+                    this.selectedNumber = number;
+                    checked.classList.remove('checked');
+                    return;
+                }
+
+                if (this.selectedNumber === '0') {
+                    this.selectedNumber = String(number);
+                } else {
+                    this.selectedNumber += String(number);
+                }
+            },
+            clear() {
+                this.selectedNumber = 0;
+            },
+            changeSign() {
+                this.selectedNumber = Number(this.selectedNumber * -1);
+            },
+            percentage() {
+                this.selectedNumber = Number(this.selectedNumber / 100);
+            },
+            selectOperation(event, operation) {
+                if (operation === '=') {
+                    if (this.result.length === 0) {
+                        this.result = eval(this.selectedNumber + this.operation + this.selectedNumber);
+                    }
+
+                    this.selectedNumber = this.result;
+                    this.result = '';
+                    this.operation = '';
+                    let checked = document.querySelector('.checked');
+                    if (checked) {
+                        checked.classList.remove('checked');
+                    }
+
+                    return;
+                }
+
+
+                if (this.result) {
+                    this.selectedNumber = this.result;
+                    this.result = '';
+                }
+
+                this.operation = operation;
+                event.target.classList.add('checked');
+            },
+        }
+    }
+</script>
+</html>

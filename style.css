@@ -1,0 +1,94 @@
+body {
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-family: "Tahoma", serif;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.phone {
+    width: 435px;
+    height: 895px;
+    background-color: black;
+    border-radius: 50px;
+}
+
+.notification {
+    display: flex;
+    justify-content: space-between;
+    height: 5%;
+    padding: 5%;
+}
+
+.box {
+    height: 270px;
+    padding-right: 10%;
+    font-size: 64px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+}
+
+.checked {
+    background-color: #FFFFFF !important;
+    color: #FF9F0A !important;
+}
+
+.button {
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 75px;
+    width: 75px;
+    border-radius: 50%;
+    font-size: 30px;
+}
+
+.button-zero {
+    padding-left: 25px;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 75px;
+    width: 140px;
+    border-radius: 50px;
+    font-size: 30px;
+}
+
+.bg-light-gray {
+    background-color: #A5A5A5;
+}
+
+.bg-gray {
+    background-color: #333333;
+}
+
+.bg-orange {
+    background-color: #FF9F0A;
+}
+
+.line {
+    width: 40%;
+    height: 10%;
+    background-color: white;
+    border-radius: 25px;
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 5%;
+}
